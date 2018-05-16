@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+  p {
+    font-size:  : 2em;
+    border : 1px solid gray;
+    color : red;
+  }
+  </style> <!--internal 방법-->
+  <link rel="stylesheet" href="basic.css"> <!--external 방법-->
+  <title>declare_css</title>
+</head>
+<body>
+  <div>
+    <p style="border:1px solid gray; color:red; font-size:2em;"> <!--inline 방법-->
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+       sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+       Excepteur sint occaecat cupidatat non proident,
+       sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</body>
+</html>
+
+<!-- style을 HTML 페이지에 적용하는 방법 3
+  1. inline : HTML 태그 안에다가 적용 (태그 하나하나 스타일 지정)
+              다른 CSS파일에 적용한 것 보다 가장 먼저 적용(우선순위 가장 높음)
+
+  2. internal : style 태그로 지정
+                별도의 CSS파일을 관리하지 않아도 되나, 유지보수가 어려움
+                지정하는 스타일코드가 적으면 이 방법을 사용해도 괜찮다
+
+  3. external : 외부파일(.css)로 지정하는 방식
+                CSS코드가 아주 짧지 않다면 가급적 이 방법으로 구현하는 것이 가장 좋다
+                HTML파일의 head태그 안에 link태그로 추가하면 된다
+
+          * internal과 external은 우선순위가 동등. 겹치는 선언이 있을 경우 나중에 선언된 속성 반영
+  -->
