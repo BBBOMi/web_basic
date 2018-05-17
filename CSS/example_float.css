@@ -1,0 +1,49 @@
+li {
+  list-style: none;
+}
+
+header {
+  background-color: #eee;
+}
+
+#wrap {
+  overflow: auto;
+  /* overflow는 flow를 자식으로 인식하게 함 */
+  margin: 20px 0px;
+
+}
+
+.left, .right {
+  float: left;
+  height: 200px;
+}
+
+.left {
+  width: 17%;
+  margin-right: 3%;
+  background-color: #ccc;
+}
+
+.right {
+  width: 80%;
+  text-align: center;
+  background-color: #ccc;
+}
+
+.right > h2 {
+  position: relative;
+}
+
+.right .emoticon {
+  position: absolute;
+  top: 0px;
+  right: 40%;
+  color: #fff;
+}
+
+footer {
+  background-color: #eee;
+  clear: left;
+  text-align: center;
+  /* clear는 float를 인식하게 함(left, right, both) */
+}
