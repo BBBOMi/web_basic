@@ -87,3 +87,24 @@ function getName(name) {
 }
 
 var getName = (name) => "Kim" + name; // arrow함수, 위 함수와 같음
+
+/* 함수의 호출 - call stack
+              - 함수 호출 관계: bar() -> foo()
+              - bar 함수에서 foo를 호출한 후 foo의 결과를 받아올 때 까지 bar함수는 메모리공간 차지
+              - return문 실행 후 메모리 공간에서 제거
+              - 함수를 연속해서 계속 호출하면 call stack이 꽉차버림
+                                  -> Maximum call stack size exceeded 오류 발생
+              - 브라우저에서는 대부분 지정된 횟수만큼만 call stack을 쌓게 미리 설정해두는 경우도 있음
+*/
+function foo(b) {
+  var a = 5;
+  return a * b + 10;
+}
+
+function bar(x) {
+  var y = 3;
+  return foo(x * y);
+}
+
+console.log(bar(6));
+// 함수 실행 순서(line) : (103) -> 98 -> 99 -> 100 -> (93) -> (94) -> (95) -> 100 -> (103)
