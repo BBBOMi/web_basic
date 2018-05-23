@@ -8,8 +8,8 @@
 /* getElementId() : ID정보를 통해서 찾을 수 있다.
                   : id 어트리뷰트 값으로 요소 노드를 한 개 선택. 복수개일 경우, 첫번째 요소만 반환
 */
-document.getElementId('one'); // return: id값으로 'one'을 가지고 있는 요소
-document.getElementId('one').display = "none"; // 'one'을 id값으로 갖고 있는 요소의 display속성을 none으로 함.
+document.getElementById('one'); // return: id값으로 'one'을 가지고 있는 요소
+document.getElementById('one').display = "none"; // 'one'을 id값으로 갖고 있는 요소의 display속성을 none으로 함.
 
 /* Element.querySelector() : Selector문법을 활용해 DOM에 접근할 수 있음
                            : DOM을 찾는데 특히 유용
@@ -21,4 +21,3 @@ document.querySelector("div"); // div태그를 가진 요소를 찾아줌
 
 /* Elecment.querySelectorAll() : seletor에 해당하는 요소 노드를 Nodelist형태로 반환 */
 document.querySelectorAll("div"); // div태그를 가진 요소를 모두 반환
- 
