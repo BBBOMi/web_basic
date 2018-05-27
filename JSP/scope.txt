@@ -31,6 +31,7 @@ Scope의 영역 - (Least Visible) Page < Request < Session < Application (Most V
           - 값을 저장할 때는 session 객체의 setAttribute()메소드를 사용
           - 값을 읽어 들일 때는 session 객체의 getAttribute()메소드를 사용
           - 사용자별로 유지가 되어야 할 정보가 있을 때 사용
+          - session 객체가 생성되어서 소멸될 때까지 유지.
 
 
 4. Application Scope
