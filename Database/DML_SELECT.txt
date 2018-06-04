@@ -1,0 +1,98 @@
+DML : 데이터 조작어, Data Manipulation Language
+
+DML의 종류 1. SELECT - 검색
+          2. INSERT - 등록
+          3. UPDATE - 수정
+          4. DELETE - 삭제
+
+1. SELECT
+    A. SELECT 구문의 기본 문형 - SELECT * | {[DISTINCT] column | expression [alias], ...}
+                                FROM table;
+
+                    (*SELECT : 검색하고자 하는 데이터(칼럼)을 나열한다
+                      DISTINCT : 중복행을 제거
+                      ALIAS : 나타날 컬럼에 대한 다른 이름 부여
+                      FROM : 선택할 컬럼이 있는 테이블을 명시)
+
+    B. SELECT 구문의 예제
+          i. 전체 데이터 검색 - SELECT 뒤에 *를 기술함으로써 나타낼 수 있다.
+                ex. SELECT * FROM department;
+
+          ii. 특정 컬럼 검색 - SELECT 뒤에 컬럼을 ,로 구별해서 나열
+                ex. SELECT empno, name, job FROM employee;
+
+          iii. 컬럼에 alias부여하기 - 컬럼에 대한 alias(별칭)을 부여해서 나타내는 컬럼의 heading을 변경할 수 있다
+                ex. SELECT empno as 사번, name '이름', job 직업 FROM employee;
+                (as/""/'' 생략 가능, ""/''로 묶을 경우 대소문자 구분/띄어쓰기 가능/예약어 가능)
+
+          iv. 컬럼의 합성(concatenation) - 문자열 결합함수 concat 사용
+                ex. SELECT concat(empno, '-', deptno) as '사번-부서번호' FROM employee;
+
+          v. 중복행의 제거 - DISTINCT 키워드로 중복행을 제거
+                ex. SELECT DISTINCT deptno FROM employee;
+
+          vi. 정렬하기 - ORDER BY 절 사용
+                기본 문형 - SELECT ...
+                           FROM ...
+                           ORDER BY column | expression [ASC / DESC];
+
+                           (*ASC : 오름차순 정렬, 기본값
+                             DESC : 내림차순)
+
+                ex. SELECT empno, name FROM employee ORDER BY name;
+                    SELECT empno as 사번, name as 이름 FROM employee ORDER BY 이름;
+                    SELECT empno, name FROM employee ORDER BY 2;
+
+          vii. 특정 행 검색 - WHERE 절 사용
+                기본 문형 - SELECT ...
+                           FROM ...
+                           WHERE conditions;
+
+                           (*conditions : 문자열과 날짜 값은 ''으로 표시
+                                          문자 값은 대소문자 구별
+                                          날짜 값은 형식 구별)
+
+                ex. SELECT name, hiredate FROM employee WHERE hiredate < '1981-01-01';
+                    SELECT name, deptno FROM employee WHERE deptno = 30;
+
+                IN 키워드
+                    ex. SELECT name, deptno FROM employee WHERE deptno IN(10, 30);
+                        => SELECT name, deptno FROM employee WHERE deptno = 10 OR deptno = 30;
+
+                BETWEEN 키워드
+                    ex. SELECT name, deptno FROM employee WHERE deptno BETWEEN 10 AND 30;
+                        => SELECT name, deptno FROM employee WHERE deptno IN(10, 20, 30);
+                        => SELECT name, deptno FROM employee WHERE 10 <= deptno <= 30;
+
+                LIKE 키워드 - 와일드 카드를 사용하여 특정 문자를 포함한 값에 대한 조건을 처리
+                            - %는 0에서부터 여러 개의 문자열을 나타냄
+                            - _는 단 하나의 문자를 나타내는 와일드 카드
+                    ex. SELECT name, job FROM emloyee WHERE name LIKE '%A%';
+
+          viii. 함수의 사용 - mysql내에 존재하는 함수를 이용해 검색할 수도 있다
+                ex. SELECT UCASE('seoul'), UPPER('Seoul') => SEOUL 결과 출력
+                    SELECT SUBSTRING('Happy Day', 3, 2) => pp (mysql 인덱스는 1부터 시작)
+                    SELECT LPAD('joe', 7, *) => ****joe
+                    SELECT TRIM(' hi ') => hi
+                    SELECT NOW(), SYSDATE(), CURRENT_TIMESTAMP => 오늘 현시각을 YYYY-MM-DD HH:MM:SS형식으로 반환
+                    SELECT DATE_FORMAT(date, format) => 입력된 date를 format 형식으로 반환
+                    *이 외에 다양한 함수 존재
+
+            ix. CAST 형변환 - CAST 함수는 type을 변경(지정) 하는데 유용하다
+                  사용법 - CAST(expression AS type) 또는 CONVERT(expression, type)
+                  mysql 타입 - BINARY, CHAR, DATE, DATETIME, SIGNED{INTEGER}, TIME, UNSIGNED{INTEGER}
+
+                  ex. SELECT CAST(NOW() AS DATE); => YYYY-MM-DD형식으로 날짜만 출력
+
+            xi. 그룹함수
+                  그룹함수의 종류 - COUNT([DISTINCT] * | exp, ...)
+                                   AVG(exp), MIN(exp), MAX(exp), SUM(exp)
+                                   *이 외에 다양한 함수 존재
+
+                  ex. SELECT AVG(salary), SUM(salary) FROM employee WHERE deptno = 30;
+
+                  GROUP BY 절 - 그룹핑해준다
+                        ex. SELECT deptno, COUNT(*) FROM employee GROUP BY deptno;
+                            SELECT deptno 부서이름, COUNT(*) FROM employee GROUP BY 부서이름;
+                            SELECT deptno, COUNT(*) FROM employee GROUP BY 1;
+                            => 부서별로 인원수를 출력                 
