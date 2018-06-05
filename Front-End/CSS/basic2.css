@@ -1,0 +1,64 @@
+/* 4. CSS 기본 style 변경 방법 - font의 색상, 사이즈, 배경색, 글꼴 등*/
+
+/* font 변경 방법 */
+div {
+  color: red;
+  color: rgba(255, 0, 0, 0.5);
+  color: #ff0000; /* 16진수 표기법으로 가장 많이 사용하는 방법 */
+  color: #f00; /* 이렇게 축약도 가능 */
+
+  font-size: 16px; /* 고정 크기(절대적) */
+  font-size: 1em; /* 가변 크기(상대적) */
+
+  font-family: "Gulim";
+  font-family: monospace;
+}
+
+/* 배경색 변경 방법 */
+div {
+  background-color: #ff0; /* 배경색 지정 */
+  background-image: image(); /* 배경이미지 지정 */
+  /* 뿐만 아니라 position, repeat등의 속성도 존재 */
+  background: #0000ff url("") no-repeat center top; /* 이렇게 모든 속성을 한 줄로도 정의 가능*/
+}
+
+/* 5. CSS Layout - element가 배치되는 방법
+    - 기본 element는 위에서 아래로 배치되는 것이 기본적
+    - 다양한 방식의 배치를 위해 다양한 속성 활용.
+    - 중요한 속성들 : display(block, inline, inline-block) - layout_display.html
+                    position(static, absolute, relative, fixed) - layout_position.html
+                    float(left, right) - layout_float.html
+
+    - box-model : block element의 경우 box의 크기와 간격에 관한 속성으로 배치를 추가 결정한다
+                : margin/padding/border/outline으로 생성
+                    -> margin : border밖의 영역
+                    -> padding : border와 내용의 사이 영역
+                    -> border : padding과 margin사이의 영역
+
+                : box-shadow -> border 밖에 테두리를 그릴 수 있는 속성
+
+     - element의 크기는 부모의 크기가 기본.
+     -box-sizing : content-box -> 기본 값. padding값에 의해 box 사이즈가 바뀐다.
+                                  (지정한 높이(너비)값 + padding + border + margin)
+                   border-box -> box의 크기 유지
+
+ */
+
+/* box-model 사용의 예 */
+div {
+  width: 100px;
+  padding: 100px;
+  border: 1px solid red;
+  padding: 50px;
+  font-size: 0.8em;
+}
+
+.box-content {
+  box-sizing: content-box;
+  /* 100px 보다 커짐 */
+}
+
+.box-border {
+  box-sizing: border-box;
+  /* 100px 유지 */
+}
