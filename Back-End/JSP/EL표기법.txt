@@ -1,0 +1,73 @@
+EL(Expression Language) : 표현 언어, 값을 표현하는 데 사용되는 스크립트 언어로서
+                          JSP의 기본 문법을 보완하는 역할을 한다.
+
+EL이 제공하는 기능 1. JSP의 scope에 맞는 속성 사용
+                  2. 집합 객체에 대한 접근 방법 제공
+                  3. 수치 연산, 관계 연산, 논리 연산자 제공
+                  4. 자바 클래스 메소드 호출 기능 제공
+                  5. 표현 언어만의 기본 객체 제공
+
+EL의 표현 방법 : ${expr } (expr - 표현 언어가 정의한 문법에 따라 값을 표현한 식)
+              : 표현 언어는 JSP의 스크립트 요소(스크립트릿, 표현식, 선언부)를 제외한
+                나머지 부분에서 사용될 수 있으며, 표현식보다 편리하게 값을 출력할 수 있다.
+
+EL의 기본 객체 - pageContext : JSP의 page 기본 객체와 동일
+
+              - pageScope : pageContext 기본 객체에 저장된 속성의 <속성, 값> 매핑을 저장한 Map 객체
+              - requestScope : request 기본 객체에 저장된 속성의 <속성, 값> 매핑을 저장한 Map 객체
+              - sessionScope : session 기본 객체에 저장된 속성의 <속성, 값> 매핑을 저장한 Map 객체
+              - applicationScope : application 기본 객체에 저장된 속성의 <속성, 값> 매핑을 저장한 Map 객체
+
+              - param : 요청 파라미터의 <파라미터이름, 값> 매핑을 저장한 Map 객체
+                        파라미터 값의 타입은 String으로서, request.getParameter(이름)의 결과와 동일
+              - paramValues : 요청 파라미터의 <파라미터이름, 값배열> 매핑을 저장한 Map 객체
+                              값의 타입은 String[]으로서, request.getPrameterValues(이름)의 결과와 동일
+              - header : 요청 정보의 <헤더이름, 값> 매핑을 저장한 Map 객체
+                          request.getHeader(이름)의 결과와 동일
+              - headerValues : 요청 정보의 <헤더이름, 값 배열> 매핑을 저장한 Map 객체
+                                request.getHeaders(이름)의 결과와 동일
+              - cookie : <쿠키이름, Cookie> 매핑을 저장한 Map 객체
+                          request.getCookies()로 구한 Cookie 배열로부터 매핑을 생성한다
+              - initParam : 초기화 파라미터의 <이름, 값> 매핑을 저장한 Map 객체
+                            application.getInitParameter(이름)의 결과와 동일
+
+EL의 데이터 타입 : boolean, 정수형, 실수형, 문자열, null
+
+객체 접근 규칙 : ${<표현1>.<표현2>}
+               - 표현1이나 표현2가 null이면 null 반환
+               - 표현1이 Map일 경우 : 표현2를 key로한 값을 반환
+                 표현1이 List나 배열일 경우 : 표현2가 정수 -> 해당 정수번째 index에 해당하는 값 반환
+                                            정수가 아님 -> 오류 발생
+                 표현1이 객체일 경우 : 표현2에 해당하는 getter메소드에 해당하는 메소드를 호출한 결과 반환
+
+EL의 수치 연산자 : + , - , * , / 또는 div , % 또는 mod
+                - 숫자가 아닌 객체와 수치 연산자를 사용할 경우 객체를 숫자 값으로 변환 후 연산자 수행(${"10" + 1} -> ${10 + 1 })
+                - 숫자로 변환할 수 없는 객체와 수치 연산자를 함께 사용하면 에러 발생(${"열" + 1} -> 에러)
+                - 수치 연산자에서 사용되는 객체가 null이면 0으로 처리(${null + 1} -> ${0 + 1})
+
+EL의 비교 연산자 : == 또는 eq , != 또는 ne , < 또는 lt , > 또는 gt , <= 또는 le , >= 또는 ge
+                  문자열 비교는 ${str == '값'}. str.compareTo("값") == 0 과 동일
+
+EL의 논리 연산자 : && 또는 and , || 또는 or , ! 또는 not
+
+empty연산자 - empty<값> : <값>이 null이면 true 반환
+                       : <값>이 빈 문자열("")이면 true 반환
+                       : <값>이 길이가 0인 배열이면 true 반환
+                       : <값>이 빈 Map이면 true 반환
+                       : <값>이 빈 Collection이면 true 반환
+                       * 이 외의 경우 모두 false
+
+비교선택 연산자 : <수식> ? <값1> : <값2> -> <수식>의 결과값이 true이면 <값1> 리턴, false이면 <값2>리턴
+
+연산자 우선순위 1. []
+               2. ()
+               3. -(단일) not ! empty
+               4. * / div % mode
+               5. + -
+               6. < > <= >= lt gt le ge
+               7. == != eq ne
+               8. && and
+               9. || or
+               10. ? : (비교선택 연산자)
+
+EL 비활성화 : JSP에 명시하기 <% page isELIgnored = "true" %>
