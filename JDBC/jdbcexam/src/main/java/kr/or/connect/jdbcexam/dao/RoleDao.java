@@ -155,4 +155,29 @@ public class RoleDao {
     
     return deleteCount;
   }
+  
+  // UPDATE - 하나의 데이터
+  public int UpdateRole(Role role) {
+    int updateCount = 0;
+    
+    try {
+      Class.forName("com.mysql.jdbc.Driver");
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+    
+    String sql = "UPDATE role SET description = ? WHERE role_id = ?";
+    
+    try(Connection conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
+        PreparedStatement ps = conn.prepareStatement(sql)) {
+      ps.setString(1, role.getDescription());
+      ps.setInt(2, role.getRoleId());
+      
+      updateCount = ps.executeUpdate();
+      
+    } catch(SQLException e) {
+      e.printStackTrace();
+    }
+    return updateCount;
+  }
 }
