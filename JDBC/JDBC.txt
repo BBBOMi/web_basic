@@ -1,0 +1,39 @@
+JDBC(Java Database Connectivity)
+      1. JDBC의 정의
+          - 자바를 이용한 데이터베이스 접속과 SQL 문장의 실행, 실행 결과로 얻어진 데이터의 핸들링을 제공하는 방법과 절차에 관한 규약
+          - 자바 프로그램 내에서 SQL문을 실행하기 위한 자바 API
+          - SQL과 프로그래밍 언어의 통합 접근 중 한 형태
+
+      2. JAVA는 표준 인터페이스인 JDBC API를 제공한다
+      3. 데이터베이스 벤더 또는 기타 써드파티에서는 JDBC 인터페이스를 구현한 Driver를 제공
+
+JDBC 환경 구성
+      - JDK 설치
+      - JDBC 드라이버 설치(Maven에 의존성을 추가)
+          ex. <dependency>
+                  <groupId>mysql</groupId>
+                  <artifactId>msyql-connector-java</artifactId>
+                  <version>5.1.45</version>
+              </dependency>
+
+JDBC를 이용한 프로그래밍 방법
+      1. IMPORT
+            -> import java.sql.*;
+      2. 드라이버를 로드
+            -> Class.forName("com.mysql.jdbc.Driver");
+      3. Connection 객체를 생성
+            -> Connection conn = DriverManager.getConnection(dburl, ID, PWD);
+      4. Statement 객체를 생성 및 질의 수행
+            -> Statement stmt = con.createStatement();
+               stmt.execute("query");
+      5. SQL문에 결과문이 있다면 ResultSet 객체를 생성
+            -> ResultSet rs = stmt.executeQuery("query");
+      6. 모든 객체를 close();
+            -> rs.close();
+               stmt.close();
+               conn.close();
+
+JDBC 클래스의 생성 관계
+      1. DriverManager를 이용해서 Connection 인스턴스를 얻는다
+      2. Connection을 통해서 Statement를 얻는다
+      3. Statement를 이용해 ResultSet을 얻는다
