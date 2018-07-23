@@ -37,4 +37,9 @@ public class RoleDao {
     SqlParameterSource params = new BeanPropertySqlParameterSource(role);
     return insertAction.execute(params);
   }
+  
+  public int update(Role role) {
+    SqlParameterSource params = new BeanPropertySqlParameterSource(role);
+    return jdbc.update(UPDATE, params);
+  }
 }
