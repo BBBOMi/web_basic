@@ -1,0 +1,18 @@
+[
+	{
+		"eName" : "grape",
+		"kName" : "포도" 
+	},
+	{
+		"eName" : "orange",
+		"kName" : "오렌지"
+	},
+	{
+		"eName" : "peach",
+		"kName" : "복숭아"
+	},
+	{
+		"eName" : "blueberry",
+		"kName" : "블루베리"
+	}
+]
