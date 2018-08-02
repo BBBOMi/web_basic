@@ -1,0 +1,33 @@
+h2, #menu {
+	text-align: center;
+}
+
+#tab {
+	width: 800px;
+	margin: 0px auto;
+}
+
+#menu {
+	background-color: #fcf7cf;
+	height: 50px;
+	line-height: 50px;
+}
+
+#menu>div {
+	display: inline-block;
+	width: 195px;
+}
+
+#menu>div:hover {
+	cursor: pointer;
+	opacity: 0.4;
+}
+
+#content {
+	background-color: #ffecc6;
+	padding: 5%;
+}
+
+h4 {
+	margin: 0px;
+}
