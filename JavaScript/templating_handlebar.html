@@ -28,14 +28,16 @@
     <li>
       <div>게시자 : {{name}}</div>
       <div class="content">{{content}}</div>
-      <div>좋아요 개수 <span>{{like}}</span></div>
+      {{#likes like}}
+        {{like}}
+      {{/likes}}
       <div class="comment">
         <h5>댓글</h5>
         // 조건 상황에 따른 처리
         {{#if comment}}
           //배열이 포함된 데이터의 처리 방법
           {{#each comment}}
-            <div>No.{{@index}} : {{this}}</div>
+            <div>{{#index @index}} {{index}} {{/index}} : {{this}}</div>
           {{/each}}
         {{else}}
           <div>댓글이 아직 없군요</div>
@@ -53,6 +55,20 @@
 	     {"id" : 23, "name" : "pororo", "content" : "크롱이 항상 말썽을 피워서 행복해~", "like" : 4, "comment" : []},
 	     {"id" : 5, "name" : "pobi", "content" : "물고기를 한마리도 잡지 못하다니..", "like" : 5, "comment" : ["댓글이다", "멋진글이네요", "잘봤습니다"]}
       ];
+
+    Handlebars.registerHelper("likes", function(like) {
+      if(like > 4) {
+        return "<span>축하해요 좋아요가 " + like + "개 이상입니다!</span>";
+      } else if(like < 1) {
+        return "<span>아직 아무도 좋아하지 않아요..";
+      } else {
+        return "<span>" + like + "개의 좋아요가 있네요";
+      }
+    });
+
+    Handlebars.registerHelper("index", function(index) {
+      return "No." + (index + 1);
+    });
 
     var template = document.querySelector("#listTemplate").innerText;
     // pre-compile
